@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="style.css" rel="stylesheet" />
+    <!-- CDN Link -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+      integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <title></title>
+  </head>
+
+  <body>
+    <div id="app">
+      <header>
+        <h1 v-text="sitename"></h1>
+        <button>
+          <!-- 'cartItemCount' is used the same way as a data property. -->
+          {{ cartItemCount }}
+          <!-- add the cart icon -->
+          <span class="fas fa-cart-plus"></span> Checkout
+        </button>
+      </header>
+      <main>
+        <figure>
+          <img v-bind:src="product.image" />
+        </figure>
+        <h2 v-text="product.title"></h2>
+        <p v-text="product.description"></p>
+
+        <p>Price: {{product.price}}</p>
+        <button v-on:click="addToCart">Add to cart</button>
+      </main>
+    </div>
+
+    <script type="text/javascript">
+      var webstore = new Vue({
+        el: "#app",
+        data: {
+          sitename: "Vue.js Pet Depot",
+          product: {
+            id: 1001,
+            title: "Cat Food, 25lb bag",
+            description:
+              "A 25 pound bag of irresistible," +
+              "organic goodness for your cat.",
+            price: 2000,
+            image: "catfood.jpg",
+            availableInventory: 5
+          },
+          cart: [], // array to store items in shopping cart
+        },
+        methods: {
+          addToCart: function () {
+            this.cart.push(this.product.id);
+          },
+        },
+        computed: {
+          // the Computed Property object
+          cartItemCount: function () {
+            // the property name
+            // its value is calculated when it is called
+            return this.cart.length || "";
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
